@@ -22,12 +22,12 @@ public class OrderEntity {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "payment_status", nullable = false)
-  private PaymentStatus paymentStatus;
+  private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
   @Column(name = "total_cost", precision = 19, scale = 2)
-  private BigDecimal total_cost;
+  private BigDecimal total_cost = BigDecimal.valueOf(0);
 
   @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-  private Set<ItemEntity> itemEntities = new LinkedHashSet<>();
+  private Set<ItemEntity> items = new LinkedHashSet<>();
 
 }

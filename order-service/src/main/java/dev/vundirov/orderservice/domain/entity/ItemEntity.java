@@ -29,7 +29,7 @@ public class ItemEntity {
   private Long quantity;
 
   @Column(name = "cost", nullable = false, precision = 19, scale = 2)
-  private BigDecimal cost;
+  private BigDecimal cost = BigDecimal.valueOf(0);
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "order_id")

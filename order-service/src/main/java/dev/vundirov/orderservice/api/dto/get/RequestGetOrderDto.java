@@ -11,5 +11,5 @@ import java.util.Set;
  */
 public record RequestGetOrderDto(Long id, PaymentStatus paymentStatus,
                                  BigDecimal total_cost,
-                                 Set<RequestGetItemDto> itemEntities) {
+                                 Set<RequestGetItemDto> items) {
 }

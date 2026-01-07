@@ -11,7 +11,7 @@ public interface OrderMapper {
 
   @AfterMapping
   default void linkItems(@MappingTarget OrderEntity order) {
-    order.getItemEntities()
+    order.getItems()
             .forEach(item -> item.setOrder(order));
   }
 
@@ -21,7 +21,7 @@ public interface OrderMapper {
 
   @AfterMapping
   default void linkItemEntities(@MappingTarget OrderEntity orderEntity) {
-    orderEntity.getItemEntities()
+    orderEntity.getItems()
             .forEach(itemEntity -> itemEntity.setOrder(orderEntity));
   }
 
