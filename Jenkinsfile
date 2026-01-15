@@ -21,20 +21,24 @@ pipeline {
            }
        }
 stage('Run Tests') {
+    // В декларативном пайплайне parallel ставится ВМЕСТО steps, а не ВНУТРИ steps
     parallel {
         stage('Order Service') {
             steps {
-                sh "docker compose -f ${COMPOSE_FILE} run --rm order-service ./gradlew test"
+                echo "Testing Order Service..."
+                sh "docker compose -f ${COMPOSE_FILE} run --rm order-platform.order-service ./gradlew test"
             }
         }
         stage('Payment Service') {
             steps {
-                sh "docker compose -f ${COMPOSE_FILE} run --rm payment-service ./gradlew test"
+                echo "Testing Payment Service..."
+                sh "docker compose -f ${COMPOSE_FILE} run --rm order-platform.payment-service ./gradlew test"
             }
         }
         stage('Warehouse Service') {
             steps {
-                sh "docker compose -f ${COMPOSE_FILE} run --rm warehouse-service ./gradlew test"
+                echo "Testing Warehouse Service..."
+                sh "docker compose -f ${COMPOSE_FILE} run --rm order-platform.warehouse-service ./gradlew test"
             }
         }
     }
