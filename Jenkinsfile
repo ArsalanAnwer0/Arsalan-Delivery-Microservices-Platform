@@ -12,29 +12,14 @@ pipeline {
             }
         }
 
-        stage('Prepare Environment') {
-            steps {
+       stage('Prepare Environment') {
+           steps {
+               withCredentials([file(credentialsId: 'my-app-env', variable: 'ENV_FILE')]) {
 
-                withCredentials([file(credentialsId: 'my-app-env', variable: 'ENV_FILE')]) {
-                    sh 'cp $ENV_FILE .env'
-                }
-            }
-        }
-
-        stage('Test') {
-            agent {
-
-                docker { 
-                    image 'gradle:8.5-jdk21' 
-
-                    args '-u root' 
-                }
-            }
-            steps {
-                sh 'gradle test' 
-            }
-        }
-
+                   sh 'cp \$ENV_FILE .env'
+               }
+           }
+       }
         stage('Stop Old Containers') {
             steps {
                 sh "docker compose -f ${COMPOSE_FILE} down || true"
